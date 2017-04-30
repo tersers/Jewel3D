@@ -3,6 +3,7 @@
 #include "Resource.h"
 #include "Texture.h"
 #include "UniformBuffer.h"
+#include "Jewel3D/Reflection/Reflection.h"
 
 #include <unordered_map>
 #include <vector>
@@ -12,6 +13,7 @@ namespace Jwl
 	//- Manages a set of defines used to control shaders.
 	class ShaderVariantControl
 	{
+		REFLECT_PRIVATE;
 	public:
 		//- Adds a new define, or updates its value.
 		template<typename T>
@@ -213,3 +215,13 @@ namespace Jwl
 		UpdateHash();
 	}
 }
+
+REFLECT(Jwl::ShaderVariantControl)<>,
+	MEMBERS <
+		REF_MEMBER(defines)<>
+	>
+REF_END;
+
+REFLECT_SHAREABLE(Jwl::Shader)
+REFLECT(Jwl::Shader) < Resource >
+REF_END;

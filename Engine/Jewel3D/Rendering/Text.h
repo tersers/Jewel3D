@@ -9,6 +9,7 @@ namespace Jwl
 {
 	class Text : public Component<Text>
 	{
+		REFLECT_PRIVATE;
 	public:
 		Text(Entity& owner);
 		Text(Entity& owner, Font::Ptr font);
@@ -29,3 +30,13 @@ namespace Jwl
 		Font::Ptr data;
 	};
 }
+
+REFLECT(Jwl::Text) < Component >,
+	MEMBERS <
+		REF_MEMBER(text)<>,
+		REF_MEMBER(centeredX)<>,
+		REF_MEMBER(centeredY)<>,
+		REF_MEMBER(kernel)<>,
+		REF_MEMBER(data)<>
+	>
+REF_END;

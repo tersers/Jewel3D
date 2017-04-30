@@ -1,6 +1,7 @@
 // Copyright (c) 2017 Emilian Cioca
 #pragma once
 #include "Resource.h"
+#include "Jewel3D/Reflection/Reflection.h"
 #include "Jewel3D/Rendering/Rendering.h"
 
 #include <string>
@@ -10,6 +11,7 @@ namespace Jwl
 {
 	class Texture : public Resource<Texture>
 	{
+		REFLECT_PRIVATE;
 	public:
 		Texture() = default;
 		~Texture();
@@ -78,6 +80,7 @@ namespace Jwl
 	//- A group of textures that are bound and unbound together.
 	class TextureList
 	{
+		REFLECT_PRIVATE;
 	public:
 		void Bind() const;
 		void UnBind() const;
@@ -114,3 +117,28 @@ namespace Jwl
 		const unsigned char* data = nullptr;
 	};
 }
+
+REFLECT_SHAREABLE(Jwl::Texture)
+REFLECT(Jwl::Texture) < Resource >,
+	MEMBERS<
+		REF_MEMBER(numSamples)< ReadOnly >,
+		REF_MEMBER(numChannels)< ReadOnly >,
+		REF_MEMBER(width)< ReadOnly >,
+		REF_MEMBER(height)< ReadOnly >,
+		REF_MEMBER(format)< ReadOnly >
+	>
+REF_END;
+
+REFLECT(Jwl::TextureSlot)<>,
+	MEMBERS<
+		REF_MEMBER(tex)<>,
+		REF_MEMBER(unit)<>
+	>
+REF_END;
+
+REFLECT_BASIC(std::vector<Jwl::TextureSlot>)
+REFLECT(Jwl::TextureList)<>,
+	MEMBERS<
+		REF_MEMBER(textureSlots)<>
+	>
+REF_END;
